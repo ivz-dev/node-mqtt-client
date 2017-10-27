@@ -1,6 +1,7 @@
 const mqtt = require('mqtt'); // Підключення бібліотеки mqtt сервера
 const fs = require('fs');
-const https = require('https');
+var Omega2 = require('omega2-io');
+var board = new Omega2();
 
 var content = fs.readFileSync('mqtt_credentials.json'); // Підключення масиву з правами доступу
 var mqttCredentials = JSON.parse(content); // Перетворення JSON - об'єкту
@@ -22,6 +23,11 @@ client.on('connect', function(){ // Функція викликається в �
 
 
 client.on('message', function (topic, message) {
-    console.log(message.toString());
-    https.get('https://92ea6158.ngrok.io');
+    var message = message.toString();
+    console.log(message);
+    if(parseInt(message) > 0 && parseInt(message) < 13){
+         this.digitalWrite(13, this.HIGH);
+    } else {
+        this.digitalWrite(13, this.LOW);
+    }
 });
