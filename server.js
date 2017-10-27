@@ -17,12 +17,11 @@ var client = mqtt.connect(mqttOptions); // Підключення до серв�
 
 client.on('connect', function(){ // Функція викликається в разі успішного встановлення з'єднання
     console.log('API server start!');
-    client.subscribe('temp');
-    client.subscribe('weight');
+    client.subscribe('wattering');
 });
 
 
 client.on('message', function (topic, message) {
     console.log(message.toString());
-    https.get('https://081d9361.ngrok.io');
+    https.get('https://92ea6158.ngrok.io');
 });
