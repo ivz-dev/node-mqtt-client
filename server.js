@@ -24,5 +24,5 @@ client.on('connect', function(){ // Функція викликається в �
 
 client.on('message', function (topic, message) {
     console.log(message.toString());
-    https.get('https://d3981e58.ngrok.io');
+    https.get('https://081d9361.ngrok.io');
 });
