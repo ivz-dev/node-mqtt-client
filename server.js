@@ -1,52 +1,36 @@
 'use strict';
 const Omega2GPIO = require('omega2-gpio'),
-    gpio = new Omega2GPIO();
+const mqtt = require('mqtt'); // Підключення бібліотеки mqtt сервера
+const fs = require('fs');
 
-// Output pins (digital)
-let outputA = gpio.pin(11);
-let outputB = gpio.pin({
-    pin: 12,
-    debugging: true
+gpio = new Omega2GPIO();
+let motor1 = gpio.pin(15);
+let motor2 = gpio.pin(16);
+let motor3 = gpio.pin(17);
+
+var content = fs.readFileSync('mqtt_credentials.json'); // Підключення масиву з правами доступу
+var mqttCredentials = JSON.parse(content); // Перетворення JSON - об'єкту
+
+var mqttOptions = {
+    clientId: mqttCredentials.clientId,
+    host: mqttCredentials.host,
+    port: mqttCredentials.port,
+    username: mqttCredentials.username,
+    password: mqttCredentials.password
+};
+
+var client = mqtt.connect(mqttOptions); // Підключення до серверу
+
+client.on('connect', function(){ // Функція викликається в разі успішного встановлення з'єднання
+    console.log('API server start!');
+    client.subscribe('wattering');
 });
 
-// Set value [0, 1, true, false]
-outputA.set(1);
-outputB.set(true);
 
-// Get value
-console.log(outputA.get());
-console.log(outputB.get());
-
-// Input pins (digital)
-let inputA = gpio.pin({
-    pin: 10,
-    mode: 'input'
+client.on('message', function (topic, message) {
+    var message = message.toString();
+    console.log(message);
+    motor1.set(!motor1.get());
+    motor2.set(!motor2.get());
+    motor3.set(!motor3.get());
 });
-
-// Read value synchronously
-console.log('Value: ' + inputA.get());
-
-// Read value asynchronously
-inputA.getPromised().then(value => {
-    console.log('Value: ' + value);
-});
-
-// Simple blink (say, if you have an LED connected to gpio pin 11)
-let ledPin = gpio.pin(11),
-    blink = true;
-let blinkInterval = setInterval(() => {
-        console.log((blink ? '^_^' : '-_-') + '\n');
-ledPin.set(blink);
-blink = !blink;
-}, 500);
-
-// Stop blinking after a while
-setTimeout(() => {
-    clearInterval(blinkInterval);
-
-// PWM output
-ledPin.pwm({
-    frequency: 5, // hz
-    duty: 75 // percentage (0 -> 100)
-});
-}, 4000);
