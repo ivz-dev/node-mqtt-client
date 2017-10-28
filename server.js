@@ -1,11 +1,9 @@
 'use strict';
-const Omega2Gpio = require('omega2-gpio'),
-    gpio = new Omega2Gpio();
+const Omega2GPIO = require('omega2-gpio'),
+    gpio = new Omega2GPIO();
 
-gpio.tests()
-    .then(() => {
-    // Output pins (digital)
-    let outputA = gpio.pin(11);
+// Output pins (digital)
+let outputA = gpio.pin(11);
 let outputB = gpio.pin({
     pin: 12,
     debugging: true
@@ -52,4 +50,3 @@ ledPin.pwm({
     duty: 75 // percentage (0 -> 100)
 });
 }, 4000);
-}
