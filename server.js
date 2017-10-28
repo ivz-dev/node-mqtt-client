@@ -46,17 +46,17 @@ client.on('message', function (topic, message) {
             });
             break;
         case 2:
-            motor2.set(true);
+            motor2.set(false);
             delay(1000)
             .then(() => {
-                motor2.set(false);
+                motor2.set(true);
             });
             break;
         case 3:
-            motor3.set(true);
+            motor3.set(false);
             delay(1000)
             .then(() => {
-                motor3.set(false);
+                motor3.set(true);
             });
             break;
     }
