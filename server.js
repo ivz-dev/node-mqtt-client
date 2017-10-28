@@ -1,7 +1,5 @@
 const mqtt = require('mqtt'); // Підключення бібліотеки mqtt сервера
 const fs = require('fs');
-var Omega2 = require('omega2-io');
-var board = new Omega2();
 
 var content = fs.readFileSync('mqtt_credentials.json'); // Підключення масиву з правами доступу
 var mqttCredentials = JSON.parse(content); // Перетворення JSON - об'єкту
