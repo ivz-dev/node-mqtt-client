@@ -28,9 +28,18 @@ client.on('connect', function(){ // Функція викликається в �
 
 
 client.on('message', function (topic, message) {
-    var message = message.toString();
+    var message = parseInt(message.toString());
     console.log(message);
-    motor1.set(!motor1.get());
-    motor2.set(!motor2.get());
-    motor3.set(!motor3.get());
+
+    switch(message){
+        case 1:
+            motor1.set(!motor1.get());
+            break;
+        case 2:
+            motor2.set(!motor2.get());
+            break;
+        case 3:
+            motor3.set(!motor3.get());
+            break;
+    }
 });
