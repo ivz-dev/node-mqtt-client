@@ -39,10 +39,10 @@ client.on('message', function (topic, message) {
 
     switch(message){
         case 1:
-            motor1.set(true);
+            motor1.set(false);
             delay(1000)
             .then(() => {
-                motor1.set(false);
+                motor1.set(true);
             });
             break;
         case 2:
@@ -58,7 +58,6 @@ client.on('message', function (topic, message) {
             .then(() => {
                 motor3.set(false);
             });
-
             break;
     }
 });
