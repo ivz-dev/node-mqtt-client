@@ -10,6 +10,10 @@ let motor1 = gpio.pin(15);
 let motor2 = gpio.pin(16);
 let motor3 = gpio.pin(17);
 
+motor1.set(0);
+motor2.set(0);
+motor3.set(0);
+
 var content = fs.readFileSync('mqtt_credentials.json'); // Підключення масиву з правами доступу
 var mqttCredentials = JSON.parse(content); // Перетворення JSON - об'єкту
 
@@ -36,16 +40,24 @@ client.on('message', function (topic, message) {
     switch(message){
         case 1:
             motor1.set(1);
-            delay(500)
+            delay(1000)
             .then(() => {
                 motor1.set(0);
             });
             break;
         case 2:
-            motor2.set(!motor2.get());
+            motor2.set(1);
+            delay(1000)
+            .then(() => {
+                motor2.set(0);
+            });
             break;
         case 3:
-            motor3.set(!motor3.get());
+            motor3.set(1);
+            delay(1000)
+            .then(() => {
+                motor3.set(0);
+            });
             break;
     }
 });
