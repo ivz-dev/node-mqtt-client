@@ -10,9 +10,9 @@ let motor1 = gpio.pin(15);
 let motor2 = gpio.pin(16);
 let motor3 = gpio.pin(17);
 
-motor1.set(0);
-motor2.set(0);
-motor3.set(0);
+motor1.set(1);
+motor2.set(2);
+motor3.set(3);
 
 var content = fs.readFileSync('mqtt_credentials.json'); // Підключення масиву з правами доступу
 var mqttCredentials = JSON.parse(content); // Перетворення JSON - об'єкту
