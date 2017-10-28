@@ -1,9 +1,9 @@
 'use strict';
-const Omega2GPIO = require('omega2-gpio'),
+const Omega2GPIO = require('omega2-gpio');
 const mqtt = require('mqtt'); // Підключення бібліотеки mqtt сервера
 const fs = require('fs');
+const gpio = new Omega2GPIO();
 
-gpio = new Omega2GPIO();
 let motor1 = gpio.pin(15);
 let motor2 = gpio.pin(16);
 let motor3 = gpio.pin(17);
