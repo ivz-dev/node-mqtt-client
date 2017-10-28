@@ -58,6 +58,7 @@ client.on('message', function (topic, message) {
             .then(() => {
                 motor3.set(false);
             });
+            
             break;
     }
 });
