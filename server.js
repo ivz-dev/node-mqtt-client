@@ -3,6 +3,8 @@ const Omega2GPIO = require('omega2-gpio');
 const mqtt = require('mqtt'); // Підключення бібліотеки mqtt сервера
 const fs = require('fs');
 const gpio = new Omega2GPIO();
+const delay = require('delay');
+
 
 let motor1 = gpio.pin(15);
 let motor2 = gpio.pin(16);
@@ -33,7 +35,11 @@ client.on('message', function (topic, message) {
 
     switch(message){
         case 1:
-            motor1.set(!motor1.get());
+            motor1.set(1);
+            delay(500)
+            .then(() => {
+                motor1.set(0);
+            });
             break;
         case 2:
             motor2.set(!motor2.get());
